@@ -2,11 +2,15 @@ using UnityEngine;
 
 public class Spider : MonoBehaviour
 {
-    [SerializeField] private Transform player;  // Reference to the player's transform
+    private Transform player;  // Reference to the player's transform
     [SerializeField] private float moveSpeed = 3f;  // Speed of the enemy's movement
     private float stopDistance = 0.1f;  // Distance at which the enemy stops moving towards the player
     [SerializeField] private float rotationSpeed = 3600f;  // Speed of rotation in degrees per second
 
+    private void Start()
+    {
+        player = Player.instance.transform;
+    }
     void Update()
     {
         // Calculate the direction to the player

@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotationSpeed;
 
-    public Player instance;
+    public static Player instance;
 
     private void Awake()
     {
