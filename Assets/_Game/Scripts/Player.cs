@@ -7,6 +7,17 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotationSpeed;
+
+    public Player instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else { Destroy(this); }
+    }
     private void Update()
     {
         Vector3 moveDirection = new Vector3(_joystick.Horizontal, 0, _joystick.Vertical);
