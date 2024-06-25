@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
         }
         else { Destroy(this); }
     }
+
     private void Update()
     {
         Vector3 moveDirection = new Vector3(_joystick.Horizontal, 0, _joystick.Vertical);

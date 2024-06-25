@@ -7,6 +7,8 @@ public class Spider : MonoBehaviour
     private float stopDistance = 0.1f;  // Distance at which the enemy stops moving towards the player
     [SerializeField] private float rotationSpeed = 3600f;  // Speed of rotation in degrees per second
 
+    public int health = 100;
+
     private void Start()
     {
         player = Player.instance.transform;
@@ -41,5 +43,20 @@ public class Spider : MonoBehaviour
             // Move the enemy towards the player
             transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
         }
+    }
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        print(-damage);
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        // Handle enemy death
+        Destroy(gameObject);
     }
 }
