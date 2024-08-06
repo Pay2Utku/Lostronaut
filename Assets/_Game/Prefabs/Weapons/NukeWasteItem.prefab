@@ -150,10 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80e249764c3eb984587bfb7568ce3627, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: NukeWaste
-  attackInterval: 0.1
-  attackRadius: 5
-  damage: 1
-  enemyLayer:
+  AttackInterval: 0.1
+  AttackRadius: 5
+  Damage: 1
+  EnemyLayer:
     serializedVersion: 2
     m_Bits: 64

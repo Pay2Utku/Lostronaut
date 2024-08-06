@@ -496,6 +496,50 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!1 &412490253
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 412490255}
+  - component: {fileID: 412490254}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &412490254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412490253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c8632fd903456e4dabdc1ac705b780f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &412490255
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412490253}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.622595, y: 23.599432, z: -13.865547}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &577863482
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,6 +1004,21 @@ PrefabInstance:
       objectReference: {fileID: 1653729433}
     - target: {fileID: 5539285675199933675, guid: 0cbcac9cce5414447b2d14a50c9eab7b,
         type: 3}
+      propertyPath: _itemName
+      value: BagTurret
+      objectReference: {fileID: 0}
+    - target: {fileID: 5539285675199933675, guid: 0cbcac9cce5414447b2d14a50c9eab7b,
+        type: 3}
+      propertyPath: EnemyLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 5539285675199933675, guid: 0cbcac9cce5414447b2d14a50c9eab7b,
+        type: 3}
+      propertyPath: TurningPointTransform
+      value: 
+      objectReference: {fileID: 1792531372}
+    - target: {fileID: 5539285675199933675, guid: 0cbcac9cce5414447b2d14a50c9eab7b,
+        type: 3}
       propertyPath: turningPointTransform
       value: 
       objectReference: {fileID: 1792531372}
@@ -1362,16 +1421,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 225b2ed5c71fd544a9354fc10c7ef87a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoints:
-  - {fileID: 1417422787}
-  - {fileID: 1028096016}
-  - {fileID: 1178507028}
-  - {fileID: 1096258861}
-  enemyPrefab: {fileID: 5588077366366833911, guid: 138a09ff787847044a88dcce85759965,
-    type: 3}
-  gameInProgress: 1
-  enemySpawnRate: 3
-  spawnPointCooldown: 1
+  SpawnPoints: []
+  EnemyPrefab: {fileID: 0}
+  GameInProgress: 0
+  EnemySpawnRate: 3
+  SpawnPointCooldown: 1
 --- !u!4 &2139277849
 Transform:
   m_ObjectHideFlags: 0
@@ -1560,3 +1614,4 @@ SceneRoots:
   - {fileID: 1710153728}
   - {fileID: 9066108415728332361}
   - {fileID: 2139277849}
+  - {fileID: 412490255}

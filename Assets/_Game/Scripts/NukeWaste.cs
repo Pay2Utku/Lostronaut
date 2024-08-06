@@ -3,20 +3,20 @@ using UnityEngine;
 
 public class NukeWaste : MonoBehaviour, IItem
 {
-    public string itemName;
-    public float attackInterval = 0.1f;
-    public float attackRadius = 5f;
-    public int damage = 1;
-    public LayerMask enemyLayer;
+    public float AttackInterval = 0.1f;
+    public float AttackRadius = 5f;
+    public int Damage = 1;
+    public LayerMask EnemyLayer;
 
-    private bool isAttacking = false;
+    private bool _isAttacking = false;
 
-    public string ItemName => itemName;
+    private string _itemName;
+    public string ItemName => _itemName;
 
     public void Activate()
     {
         this.gameObject.SetActive(true);
-        if (!isAttacking)
+        if (!_isAttacking)
         {
             StartCoroutine(AoEAttack());
         }
@@ -26,34 +26,34 @@ public class NukeWaste : MonoBehaviour, IItem
     public void Deactivate()
     {
         StopCoroutine(AoEAttack());
-        isAttacking = false;
+        _isAttacking = false;
 
         this.gameObject.SetActive(false);
     }
 
     private IEnumerator AoEAttack()
     {
-        isAttacking = true;
+        _isAttacking = true;
 
-        while (isAttacking)
+        while (_isAttacking)
         {
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRadius, enemyLayer);
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, AttackRadius, EnemyLayer);
             foreach (var hitCollider in hitColliders)
             {
                 var enemy = hitCollider.GetComponent<Spider>();//Change for every type of enemy later
                 if (enemy != null)
                 {
-                    enemy.TakeDamage(damage);
+                    enemy.TakeDamage(Damage);
                 }
             }
 
-            yield return new WaitForSeconds(attackInterval);
+            yield return new WaitForSeconds(AttackInterval);
         }
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRadius);
+        Gizmos.DrawWireSphere(transform.position, AttackRadius);
     }
 }

@@ -288,11 +288,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80d52b04eb6cc4f41bc69ae9e5f3c7d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: BagTurret
-  attackInterval: 0.5
-  attackRadius: 10
-  damage: 5
-  enemyLayer:
+  AttackInterval: 0.1
+  AttackRadius: 10
+  Damage: 5
+  EnemyLayer:
     serializedVersion: 2
     m_Bits: 64
-  turningPointTransform: {fileID: 0}
+  TurningPointTransform: {fileID: 2520820842027819919}
+  _itemName: BagTurret

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ItemManager : MonoBehaviour
 {
-    public List<GameObject> itemObjects;
+    public List<GameObject> ItemObjects;
 
     public static ItemManager Instance;
     private void Awake()
@@ -17,7 +17,7 @@ public class ItemManager : MonoBehaviour
     private void Start()
     {
         // Deactivate all items on start
-        foreach (var itemObject in itemObjects)
+        foreach (var itemObject in ItemObjects)
         {
             IItem item = itemObject.GetComponent<IItem>();
             if (item != null)
@@ -32,7 +32,7 @@ public class ItemManager : MonoBehaviour
 
     public void ActivateItemByName(string itemName)
     {
-        foreach (var itemObject in itemObjects)
+        foreach (var itemObject in ItemObjects)
         {
             IItem item = itemObject.GetComponent<IItem>();
             if (item != null && item.ItemName == itemName)

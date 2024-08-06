@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public LayerMask enemyLayer;
+    public LayerMask EnemyLayer;
     [SerializeField] private FloatingJoystick _joystick;
 
     [SerializeField] private float _moveSpeed;
@@ -13,13 +13,13 @@ public class Player : MonoBehaviour
     [SerializeField] private int _maxHealth;
     [SerializeField] private float _health;
 
-    public static Player instance;
+    public static Player Instance;
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else { Destroy(this); }
     }

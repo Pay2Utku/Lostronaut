@@ -3,24 +3,25 @@ using UnityEngine;
 
 public class BagTurret : MonoBehaviour, IItem
 {
-    public string itemName;
-    public float attackInterval = 0.1f;
-    public float attackRadius = 10f;
-    public int damage = 5;
-    public LayerMask enemyLayer;
 
-    private Collider nearestEnemy;
+    public float AttackInterval = 0.1f;
+    public float AttackRadius = 10f;
+    public int Damage = 5;
+    public LayerMask EnemyLayer;
 
-    public Transform turningPointTransform;
+    private Collider _nearestEnemy;
 
-    private bool isAttacking = false;
+    public Transform TurningPointTransform;
 
-    public string ItemName => itemName;
+    private bool _isAttacking = false;
+
+    [SerializeField] private string _itemName;
+    public string ItemName => _itemName;
 
     public void Activate()
     {
         this.gameObject.SetActive(true);
-        if (!isAttacking)
+        if (!_isAttacking)
         {
             StartCoroutine(Shoot());
         }
@@ -29,7 +30,7 @@ public class BagTurret : MonoBehaviour, IItem
     public void Deactivate()
     {
         StopCoroutine(Shoot());
-        isAttacking = false;
+        _isAttacking = false;
 
         this.gameObject.SetActive(false);
     }
@@ -40,31 +41,31 @@ public class BagTurret : MonoBehaviour, IItem
     private void Update()
     {
         FindNearestEnemy();
-        AimAtNearestEnemy(nearestEnemy);
+        AimAtNearestEnemy(_nearestEnemy);
     }
 
     private IEnumerator Shoot()
     {
-        isAttacking = true;
+        _isAttacking = true;
 
-        while (isAttacking)
+        while (_isAttacking)
         {
-            if (nearestEnemy != null)
+            if (_nearestEnemy != null)
             {
-                var enemy = nearestEnemy.GetComponent<Spider>(); // Change for every type of enemy later
+                var enemy = _nearestEnemy.GetComponent<Spider>(); // Change for every type of enemy later
                 if (enemy != null)
                 {
-                    enemy.TakeDamage(damage);
+                    enemy.TakeDamage(Damage);
                 }
             }
 
-            yield return new WaitForSeconds(attackInterval);
+            yield return new WaitForSeconds(AttackInterval);
         }
     }
     private void FindNearestEnemy()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRadius, enemyLayer);
-        nearestEnemy = null;
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, AttackRadius, EnemyLayer);
+        _nearestEnemy = null;
         float shortestDistance = Mathf.Infinity;
 
         foreach (var hitCollider in hitColliders)
@@ -73,7 +74,7 @@ public class BagTurret : MonoBehaviour, IItem
             if (distance < shortestDistance)
             {
                 shortestDistance = distance;
-                nearestEnemy = hitCollider;
+                _nearestEnemy = hitCollider;
             }
         }
     }
@@ -81,26 +82,26 @@ public class BagTurret : MonoBehaviour, IItem
     {
         if (nearestEnemy == null)
         {
-            turningPointTransform.rotation = Quaternion.LookRotation(transform.forward, Vector3.up);// Yakýnda düþman yoksa önüne dön
+            TurningPointTransform.rotation = Quaternion.LookRotation(transform.forward, Vector3.up);// Yakýnda düþman yoksa önüne dön
         }
         else
         {
 
             // Calculate direction to the nearest enemy
-            Vector3 directionToEnemy = nearestEnemy.transform.position - turningPointTransform.position;
+            Vector3 directionToEnemy = nearestEnemy.transform.position - TurningPointTransform.position;
             directionToEnemy.y = 0; // Ignore the vertical component
 
             // Calculate the target rotation
             Quaternion targetRotation = Quaternion.LookRotation(directionToEnemy, Vector3.up);
 
             // Apply the rotation to the turningPointTransform
-            turningPointTransform.rotation = targetRotation;
+            TurningPointTransform.rotation = targetRotation;
         }
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRadius);
+        Gizmos.DrawWireSphere(transform.position, AttackRadius);
     }
 }
