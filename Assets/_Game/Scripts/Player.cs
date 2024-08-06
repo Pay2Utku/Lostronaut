@@ -9,7 +9,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float _rotationSpeed;
 
     [SerializeField] private float _faceRadius;
-    [SerializeField] private bool _isFacingEnemy;
+
+    [SerializeField] private int _maxHealth;
+    [SerializeField] private float _health;
 
     public static Player instance;
 
@@ -23,7 +25,7 @@ public class Player : MonoBehaviour
     }
     private void Start()
     {
-        _isFacingEnemy = true;
+        _health = _maxHealth;
     }
 
     private void Update()
@@ -32,12 +34,7 @@ public class Player : MonoBehaviour
 
         transform.Translate(moveDirection * _moveSpeed * Time.deltaTime, Space.World);
 
-        // Check if the player is using the dual pistols
-        if (IsUsingDualPistols())
-        {
-            FaceNearestEnemy();
-        }
-        else if (moveDirection != Vector3.zero)
+        if (moveDirection != Vector3.zero)
         {
             // Calculate the target angle based on movement direction
             float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
@@ -55,48 +52,33 @@ public class Player : MonoBehaviour
 
     }
 
-    private bool IsUsingDualPistols()
+
+    public void TakeDamage(int damage)
     {
-        // Implement your logic to check if the player is using dual pistols
-        // This could involve checking the current weapon type, for example:
-        // return currentWeapon is DualPistol;
-        return _isFacingEnemy; // Replace this with your actual condition
+        _health -= damage;
+        print(-damage);
+        if (IsDead())
+        {
+            Die();
+        }
     }
 
-    private void FaceNearestEnemy()
+    private bool IsDead()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, _faceRadius, enemyLayer);
-        Collider nearestEnemy = null;
-        float shortestDistance = Mathf.Infinity;
-
-        foreach (var hitCollider in hitColliders)
+        if (_health < 0)
         {
-            float distance = Vector3.Distance(transform.position, hitCollider.transform.position);
-            if (distance < shortestDistance)
-            {
-                shortestDistance = distance;
-                nearestEnemy = hitCollider;
-            }
-        }
-
-        if (nearestEnemy != null)
-        {
-            Vector3 directionToEnemy = (nearestEnemy.transform.position - transform.position).normalized;
-            float targetAngle = Mathf.Atan2(directionToEnemy.x, directionToEnemy.z) * Mathf.Rad2Deg;
-
-            // Get the current angle
-            float currentAngle = transform.eulerAngles.y;
-
-            // Smoothly rotate towards the target angle
-            float newAngle = Mathf.LerpAngle(currentAngle, targetAngle, _rotationSpeed * Time.deltaTime / 360f);
-
-            // Apply the new angle to the player
-            transform.eulerAngles = new Vector3(0, newAngle, 0);
+            return true;
         }
         else
         {
-            _isFacingEnemy = false;
+            return false;
         }
+
     }
 
+    private void Die()
+    {
+        print("you died!");
+        Destroy(gameObject);
+    }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2001090313326953715}
   - component: {fileID: 3682922209588373212}
   m_Layer: 0
-  m_Name: RightPistol
+  m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,12 +27,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1266162985363675464}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.516, y: 0.788, z: 1.311}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.992, z: 0.234}
   m_LocalScale: {x: 0.2, y: 0.27, z: 0.88}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5858175893848552247}
+  m_Father: {fileID: 2520820842027819919}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5780754367870934510
 MeshFilter:
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 1986166659163520419}
   - component: {fileID: 8093997859146047203}
   m_Layer: 0
-  m_Name: LeftPistol
+  m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -132,12 +132,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2627248321253549964}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.444, y: 0.788, z: 1.311}
-  m_LocalScale: {x: 0.2, y: 0.27, z: 0.88}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.45599997, z: 0.0010000467}
+  m_LocalScale: {x: 0.2, y: 0.95, z: 0.19}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5858175893848552247}
+  m_Father: {fileID: 2520820842027819919}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2931282522673864754
 MeshFilter:
@@ -210,6 +210,39 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &4469580467104211586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2520820842027819919}
+  m_Layer: 0
+  m_Name: TurningPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2520820842027819919
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4469580467104211586}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.544, z: -0.546}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7910040911817224683}
+  - {fileID: 8949604291483678579}
+  m_Father: {fileID: 5858175893848552247}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7689007796834095185
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,7 +254,7 @@ GameObject:
   - component: {fileID: 5858175893848552247}
   - component: {fileID: 5539285675199933675}
   m_Layer: 0
-  m_Name: DualPistol
+  m_Name: BagTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -240,8 +273,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7910040911817224683}
-  - {fileID: 8949604291483678579}
+  - {fileID: 2520820842027819919}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5539285675199933675
@@ -256,12 +288,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80d52b04eb6cc4f41bc69ae9e5f3c7d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: DualPistol
+  itemName: BagTurret
   attackInterval: 0.5
   attackRadius: 10
   damage: 5
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
-  leftBarrel: {fileID: 8949604291483678579}
-  rightBarrel: {fileID: 7910040911817224683}
+  turningPointTransform: {fileID: 0}

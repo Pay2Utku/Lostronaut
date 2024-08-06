@@ -27,7 +27,7 @@ public class ItemManager : MonoBehaviour
             }
         }
         ActivateItemByName("NukeWaste");
-        ActivateItemByName("DualPistol");
+        ActivateItemByName("BagTurret");
     }
 
     public void ActivateItemByName(string itemName)
