@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Spider : MonoBehaviour
+public class Spider : MonoBehaviour, IDamageable
 {
     private Transform _player;  // Reference to the player's transform
     [SerializeField] private float _moveSpeed = 3f;  // Speed of the enemy's movement
@@ -16,14 +16,26 @@ public class Spider : MonoBehaviour
     public float AttackRadius = 2f;
     public int Damage = 1;
     public LayerMask AttackLayer;
-
+    /*
     private void Start()
     {
         Health = MaxHealth;
         _player = Player.Instance.transform;
         Activate();
         StartCoroutine(AoEAttack());
+    }*/
+    private void OnEnable()
+    {
+        Health = MaxHealth;
+        _player = Player.Instance.transform;
+        Activate();
+        StartCoroutine(AoEAttack());
     }
+    private void OnDisable()
+    {
+        Deactivate();
+    }
+
     void Update()
     {
         if (_player == null) { return; }
@@ -101,8 +113,9 @@ public class Spider : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+
         Health -= damage;
-        print(-damage);
+        print("Enemy:" + (-damage));
         if (IsDead())
         {
             Die();
@@ -124,7 +137,10 @@ public class Spider : MonoBehaviour
     private void Die()
     {
         // Handle enemy death
-        Deactivate();
-        Destroy(gameObject);
+        //Deactivate();
+        //Destroy(gameObject);
+        this.gameObject.SetActive(false);
     }
+
+
 }

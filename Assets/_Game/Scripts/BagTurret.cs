@@ -52,7 +52,7 @@ public class BagTurret : MonoBehaviour, IItem
         {
             if (_nearestEnemy != null)
             {
-                var enemy = _nearestEnemy.GetComponent<Spider>(); // Change for every type of enemy later
+                var enemy = _nearestEnemy.GetComponent<IDamageable>(); // Change for every type of enemy later
                 if (enemy != null)
                 {
                     enemy.TakeDamage(Damage);

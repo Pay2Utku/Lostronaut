@@ -470,14 +470,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7212e8f268b47634c8bae20535980023, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  rotationSpeed: 3600
-  _health: 100
-  _maxHealth: 100
-  attackInterval: 0.1
-  attackRadius: 2
-  damage: 1
-  attackLayer:
+  _moveSpeed: 3
+  _rotationSpeed: 3600
+  Health: 0
+  MaxHealth: 100
+  AttackInterval: 0.1
+  AttackRadius: 2
+  Damage: 1
+  AttackLayer:
     serializedVersion: 2
     m_Bits: 128
 --- !u!54 &4846324902444940999

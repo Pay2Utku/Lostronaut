@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     public LayerMask EnemyLayer;
     [SerializeField] private FloatingJoystick _joystick;
@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
     public void TakeDamage(int damage)
     {
         _health -= damage;
-        print(-damage);
+        print("Player:" + (-damage));
         if (IsDead())
         {
             Die();
@@ -79,6 +79,6 @@ public class Player : MonoBehaviour
     private void Die()
     {
         print("you died!");
-        Destroy(gameObject);
+        this.gameObject.SetActive(false);
     }
 }

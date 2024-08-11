@@ -4,57 +4,53 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public List<Transform> SpawnPoints;
-    public GameObject EnemyPrefab;
-    public bool GameInProgress = false;
-    public float EnemySpawnRate = 3.0f;
-    public float SpawnPointCooldown = 1.0f;
+    [SerializeField] private Transform _poolParent;
+    public GameObject[] EnemyPrefabs;
+    [SerializeField] private float _enemySpawnRate = 3.0f;
+    [SerializeField] private int _enemySpawnGroupSize = 3;
+    [SerializeField] private List<GameObject> _enemyPool;
 
-    private float _nextSpawnTime = 0f;
-    private Dictionary<Transform, float> _occupiedSpawnPoints = new Dictionary<Transform, float>();
+    private float _timer = 0f;
+
 
     void Update()
     {
-        if (GameInProgress)
+        _timer += Time.deltaTime;
+        if (_timer > _enemySpawnRate)
         {
-            HandleCooldowns();
-            if (Time.time >= _nextSpawnTime)
-            {
-                SpawnEnemy();
-                _nextSpawnTime = Time.time + EnemySpawnRate;
-            }
+            _timer = 0f;
+            SpawnAtLocation();
         }
     }
 
-    void HandleCooldowns()
+    private void SpawnAtLocation()
     {
-        List<Transform> keys = new List<Transform>(_occupiedSpawnPoints.Keys);
-        foreach (var spawnPoint in keys)
+        Transform selectedSpawnPoint = SpawnPoints[Random.Range(0, SpawnPoints.Count)];
+        Vector3 spawnOffset;
+
+        for (int i = 0; i < _enemySpawnGroupSize; i++)
         {
-            if (Time.time >= _occupiedSpawnPoints[spawnPoint])
-            {
-                _occupiedSpawnPoints.Remove(spawnPoint);
-            }
+            GameObject enemy = GetPooledObject();
+            enemy.SetActive(true);
+            spawnOffset = new Vector3(Random.Range(0, 2f), 0, Random.Range(0, 2f));
+            selectedSpawnPoint.position += spawnOffset;
+            enemy.transform.position = selectedSpawnPoint.position;
         }
+        Debug.Break();
     }
 
-    void SpawnEnemy()
+    private GameObject GetPooledObject()
     {
-        if (SpawnPoints.Count == 0)
+        for (int i = 0; i < _enemyPool.Count; i++)
         {
-            Debug.LogWarning("No spawn points available");
-            return;
+            if (!_enemyPool[i].activeInHierarchy)
+            {
+                return _enemyPool[i];
+            }
         }
-
-        List<Transform> availableSpawnPoints = SpawnPoints.FindAll(spawnPoint => !_occupiedSpawnPoints.ContainsKey(spawnPoint));
-
-        if (availableSpawnPoints.Count == 0)
-        {
-            Debug.LogWarning("No available spawn points");
-            return;
-        }
-
-        Transform selectedSpawnPoint = availableSpawnPoints[Random.Range(0, availableSpawnPoints.Count)];
-        Instantiate(EnemyPrefab, selectedSpawnPoint.position, selectedSpawnPoint.rotation);
-        _occupiedSpawnPoints[selectedSpawnPoint] = Time.time + SpawnPointCooldown;
+        GameObject newEnemy = Instantiate(EnemyPrefabs[Random.Range(0, EnemyPrefabs.Length)], _poolParent);
+        _enemyPool.Add(newEnemy);
+        newEnemy.SetActive(false);
+        return newEnemy;
     }
 }

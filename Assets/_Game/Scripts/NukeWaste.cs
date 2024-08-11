@@ -10,7 +10,7 @@ public class NukeWaste : MonoBehaviour, IItem
 
     private bool _isAttacking = false;
 
-    private string _itemName;
+    [SerializeField] private string _itemName;
     public string ItemName => _itemName;
 
     public void Activate()
@@ -40,7 +40,7 @@ public class NukeWaste : MonoBehaviour, IItem
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, AttackRadius, EnemyLayer);
             foreach (var hitCollider in hitColliders)
             {
-                var enemy = hitCollider.GetComponent<Spider>();//Change for every type of enemy later
+                var enemy = hitCollider.GetComponent<IDamageable>();//Change for every type of enemy later
                 if (enemy != null)
                 {
                     enemy.TakeDamage(Damage);
